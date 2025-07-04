@@ -1,0 +1,384 @@
+<div *ngIf="isCopy" class="alert alert-primary" role="alert">
+  Code Copied!
+</div>
+<div class="container">
+  <div class="header">
+    <img src="angular_icon_gradient.gif" alt="" height="200" width="200" />
+    <h1 class="angular">Angular In Action</h1>
+  </div>
+</div>
+<div class="miniProject">
+  <a (click)="navigate('mini-projects')">Mini Project </a>
+</div>
+
+<div class="container3">
+  <div class="search-bar">
+    <div style="display: flex;flex-direction: row; width: 80%;">
+      <input 
+      type="text" 
+      class="form-control" 
+      placeholder="Search topics..." 
+      [(ngModel)]="searchQuery" 
+      (input)="onSearch($event)"
+      list="suggestions"
+    />
+    <button class="btn btn-primary" (click)="performSearch()">Search</button>
+    </div>
+    <div class="suggestionsOverlay" *ngIf="suggestions.length">
+      <ul class="suggestionList">
+        <li *ngFor="let suggestion of suggestions">
+          <div (click)="selectTopic(suggestion.topic)">{{suggestion.topic}}</div>
+          <ul *ngIf="suggestion.subTopics && suggestion.subTopics.length">
+            <li *ngFor="let subTopic of suggestion.subTopics" (click)="selectSubTopic(subTopic)">{{subTopic}}</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container2">
+  <div class="topics">
+    <div *ngFor="let topic of topics" class="topic" [class.selected]="selectedTopic === topic" (click)="selectTopic(topic)"> <a [routerLink]="[]" [fragment]="'selectedTopic'"> {{topic}}</a></div>
+  </div>
+</div>
+<div class="topic-section" *ngIf="selectedTopic === 'Data Binding'" id="Data Binding">
+  <div class="topic-head">Data Binding</div>
+  <div class="topic-details">Angular provides three categories of data binding according to the direction of data flow:
+    <br>
+    <div class="pointer">
+      <div class="point"> <span class="tag one">1</span> <span>From source to view</span> </div>
+      <div class="point"> <span class="tag two">2</span><span> From view to source</span></div>
+      <div class="point"> <span class="tag three">3</span> <span>In a two-way sequence of view to source to view</span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngFor="let topic of dataDB" class="accordion" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+          data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+          {{topic.title}}
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+        <div class="accordion-body">
+          {{topic.description}}
+          <div class="action">
+            <div class="code">
+              <div class="code-head">.ts<button (click)="copyCode(topic.id,'tscode','DB')">copy</button></div>
+              <pre><code #codeBlock class="language-typescript">{{topic.tsCode}}</code></pre>
+            </div>
+            <div class="code">
+              <div class="code-head">.html<button (click)="copyCode(topic.id,'htmlcode','DB')">copy</button></div>
+              <pre><code #codeBlock class="language-html">{{topic.htmlCode}}</code></pre>
+            </div>
+            <div class="outputs">
+              <div *ngIf="topic.output === 'interpolation'">
+                <div class="code-head">output</div>
+                <div class="output">
+                  These values are coming from Components <br>
+                  Name: {{name}} <br>
+                  Number: {{number}} <br>
+                  Skills:<ul>
+                    <li *ngFor="let skill of skills">{{skill}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div *ngIf="topic.output === 'propertyBinding'">
+                <div class="code-head">output</div>
+                <div class="output">
+                  Here Properties of image like src, height and width are bind to values in Components
+                  <img [src]="imageUrl" [width]="imageWidth" [height]="imageHeight" /> <br>
+                  Disabled property of button bind to userrole if role is other than admin it will remain disabled
+                  <button class="btn btn-primary" [disabled]="userRole !== 'admin' ? true : false">Admin Action</button>
+                </div>
+              </div>
+              <div *ngIf="topic.output === 'twoWayBinding'">
+                <div class="code-head">output</div>
+                <div class="output">
+                  Here input feild is two way binded to name varible in components - <br>
+                  name will change as you type in input field(change from view to model) or <br>
+                  update varibale value in ts file(change from model to view). <br>
+                  <input type="text" [(ngModel)]="country" placeholder="Enter your country" /> - {{country}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="topic-section" *ngIf="selectedTopic === 'Component Interaction'" id="Component Interaction">
+  <div class="topic-head">Component Interaction</div>
+  <div class="topic-details">Component interaction in Angular refers to how components communicate and share data with
+    each other. Since Angular follows a component-based architecture, it is crucial to pass data between parent-child,
+    sibling, or unrelated components efficiently.
+    <br>
+    <div class="pointer">
+      <div class="point"> <span class="tag one">1</span> <span>From Parent to Child Component </span> </div>
+      <div class="point"> <span class="tag two">2</span><span> From Child to Parent Component</span></div>
+      <div class="point"> <span class="tag two">3</span><span> Between Sibling Components</span></div>
+      <div class="point"> <span class="tag three">4</span> <span>Between Unrealted Components</span></div>
+    </div>
+  </div>
+
+  <div *ngFor="let topic of compInteraction" class="accordion" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+          data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+          {{topic.title}}
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show">
+        <div class="accordion-body">
+          <div [innerHTML]="topic.description"></div>
+          <div class="action">
+            <div class="code">
+              <div class="code-head">{{topic.tsCodeHead}}<button
+                  (click)="copyCode(topic.id,'tscode',dataDI)">copy</button></div>
+              <pre><code #codeBlock class="language-typescript">{{topic.tsCode}}</code></pre>
+            </div>
+            <div class="code">
+              <div class="code-head">{{topic.tsCode2Head}}<button
+                  (click)="copyCode(topic.id,'tscode2',dataDI)">copy</button></div>
+              <pre><code #codeBlock class="language-typescript">{{topic.tsCode2}}</code></pre>
+            </div>
+            <div *ngIf="topic.htmlCode" class="code">
+              <div class="code-head">{{topic.htmlCodeHead}}<button
+                  (click)="copyCode(topic.id,'htmlcode',dataDI)">copy</button></div>
+              <pre><code #codeBlock class="language-html">{{topic.htmlCode}}</code></pre>
+            </div>
+            <div *ngIf="topic.service" class="code">
+              <div class="code-head">{{topic.serviceHead}}<button
+                  (click)="copyCode(topic.id,'htmlcode',dataDI)">copy</button></div>
+              <pre><code #codeBlock class="language-typescript">{{topic.service}}</code></pre>
+            </div>
+            <div class="outputs">
+              <div *ngIf="topic.output === 'inputPC'">
+                <div class="code-head">output</div>
+                <div class="output">
+                  <app-cart [cartName]="userName" [items]="cartItems" [msg]="'Hello from Parent'"
+                    (notification)="receiveMsg($event)"></app-cart>
+                </div>
+              </div>
+              <div *ngIf="topic.output === 'outputPC'">
+                <div class="code-head">output</div>
+                <div class="output">
+                  <app-cart (notification)="receiveMsg($event)"></app-cart>
+                  <div>This is Parent DOM <br> Message from Child - {{receivedMsg}}</div>
+                </div>
+              </div>
+              <div *ngIf="topic.output === 'sibling'">
+                <div class="code-head">output</div>
+                <div class="output">
+                  <app-cart></app-cart>
+                  <app-checkout></app-checkout>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="topic-section" *ngIf="selectedTopic === 'Depedency Injection'" id="Depedency Injection">
+  <div class="topic-head">Depedency Injection</div>
+  <div class="topic-details"> Dependency Injection, or DI, is a design pattern and mechanism for creating and delivering
+    some parts of an application to other parts of an application that require them. For example to inject dependencies
+    (services, objects, or functions) into components, services, or other classes, rather than having those classes
+    create the dependencies themselves.</div>
+  <div *ngFor="let topic of dataDI" class="accordion" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+          data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true"
+          aria-controls="panelsStayOpen-collapseThree">
+          {{topic.title}}
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show">
+        <div class="accordion-body">
+          <div [innerHTML]="topic.description"></div>
+          <div class="action">
+            <div class="code">
+              <div class="code-head">service.ts<button (click)="copyCode(topic.id,'service','DI')">copy</button></div>
+              <pre><code #codeBlock class="language-typescript">{{topic.service}}</code></pre>
+            </div>
+            <div class="code">
+              <div class="code-head">component.ts<button (click)="copyCode(topic.id,'tscode','DI')">copy</button></div>
+              <pre><code #codeBlock class="language-typescript">{{topic.tsCode}}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="topic-section" *ngIf="selectedTopic === 'Forms'" id="Forms">
+  <div class="topic-head">Forms</div>
+  <div class="topic-details">Angular provides three type of Forms to handle user input and validation:
+    <br>
+    <div class="pointer">
+      <div class="point"> <span class="tag one">1</span> <span>Template Drivent Form</span> </div>
+      <div class="point"> <span class="tag two">2</span><span> Rective Forms</span></div>
+      <div class="point"> <span class="tag three">3</span> <span>Dynamic Reactive Form</span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngFor="let topic of formsData" class="accordion" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+          data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+          {{topic.title}}
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+        <div class="accordion-body">
+          <div [innerHTML]="topic.description"></div>
+          <div class="action">
+            <div class="code">
+              <div class="code-head">.ts<button (click)="copyCode(topic.id,'tscode','Forms')">copy</button></div>
+              <pre><code #codeBlock class="language-typescript">{{topic.tsCode}}</code></pre>
+            </div>
+            <div class="code">
+              <div class="code-head">.html<button (click)="copyCode(topic.id,'htmlcode','Forms')">copy</button></div>
+              <pre><code #codeBlock class="language-html">{{topic.htmlCode}}</code></pre>
+            </div>
+            <div class="outputs">
+              <div *ngIf="topic.output === 'TDF'">
+                <div class="code-head">output</div>
+                <div class="output">
+                  <h4>Contact Us</h4>
+                  <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)">
+                    <div>
+                      <label class="form-label">Name:</label>
+                      <input class="form-control" type="text" name="name" [(ngModel)]="contact.name" required />
+                    </div>
+                    <div>
+                      <label class="form-label">Email:</label>
+                      <input class="form-control" type="email" name="email" [(ngModel)]="contact.email" required />
+                    </div>
+                    <div>
+                      <label class="form-label">Message:</label>
+                      <textarea class="form-control" name="message" [(ngModel)]="contact.message" required></textarea>
+                    </div>
+                    <button type="submit" [disabled]="!contactForm.valid">Submit</button>
+                  </form>                  
+                </div>
+              </div>
+              <div *ngIf="topic.output === 'Reactive'">
+                <div class="code-head">output</div>
+                <div class="output">
+                  <h2>Contact Us</h2>
+                  <form [formGroup]="contactForm" (ngSubmit)="onSubmitReactive()">
+                    <div>
+                      <label class="form-label">Name:</label>
+                      <input class="form-control" type="text" formControlName="name" />
+                    </div>
+                    <div>
+                      <label class="form-label">Email:</label>
+                      <input class="form-control" type="email" formControlName="email" />
+                    </div>
+                    <div>
+                      <label class="form-label">Message:</label>
+                      <textarea class="form-control" formControlName="message"></textarea>
+                    </div>
+                    <button type="submit" [disabled]="!contactForm.valid">Submit</button>
+                  </form>                  
+                </div>
+              </div>
+              <div *ngIf="topic.output === 'Dynamic'">
+                <div class="code-head">output</div>
+                <div class="output">
+                  <h2>Contact Us</h2>
+                  <form [formGroup]="contactFormD" (ngSubmit)="onSubmitDynamic()">
+                    <div *ngFor="let field of formFields">
+                      <label>{{ field.label }}:</label>
+                      <input
+                        *ngIf="field.type !== 'textarea'"
+                        [type]="field.type"
+                        [formControlName]="field.name"
+                      />
+                      <textarea
+                        *ngIf="field.type === 'textarea'"
+                        [formControlName]="field.name"
+                      ></textarea>  
+                    </div>
+                    <button type="submit" [disabled]="!contactFormD.valid">Submit</button>
+                  </form>                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="topic-section" *ngIf="selectedTopic === 'Routing' || selectedTopic === 'Route Params' || selectedTopic === 'Query Params'" id="Routing">
+  <div class="topic-head">Routing</div>
+  <div class="topic-details">Routing in Angular is a powerful feature that allows developers to create single-page applications (SPAs) with multiple views and navigation between them. It enables the application to load different components based on the URL, providing a seamless user experience without full page reloads.
+    
+  </div>
+
+  <div *ngFor="let topic of routsData" class="accordion" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+          data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+          {{topic.title}}
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+        <div class="accordion-body">
+          <div [innerHTML]="topic.description"></div>
+          <div class="action">
+            <div class="code">
+              <div class="code-head">.ts<button (click)="copyCode(topic.id,'tscode','Forms')">copy</button></div>
+              <pre><code #codeBlock class="language-typescript">{{topic.tsCode}}</code></pre>
+            </div>
+            <div class="code">
+              <div class="code-head">.ts<button (click)="copyCode(topic.id,'tscode','Forms')">copy</button></div>
+              <pre><code #codeBlock class="language-typescript">{{topic.tsCode2}}</code></pre>
+            </div>
+            <div class="code">
+              <div class="code-head">.html<button (click)="copyCode(topic.id,'htmlcode','Forms')">copy</button></div>
+              <pre><code #codeBlock class="language-html">{{topic.htmlCode}}</code></pre>
+            </div>
+            <div class="outputs">
+              <div *ngIf="topic.output === 'RouteType'">
+                <div class="code-head">output</div>
+                <div class="output">
+                  <button routerLink="/homee">Wildcart Route - When we hit Wrong URL></button>
+                  <button routerLink="/home">Default Route - Deafult route when app loads></button>
+                  <button routerLink="/home/cart">Child 1 Route - Child1 of Home</button>
+                  <button routerLink="/eCom">Child 2 Route - Child2 of Home</button> 
+                </div>
+              </div>
+              <div *ngIf="topic.output === 'RouteParam'" id="Route Params">
+                <div class="code-head">output</div>
+                <div class="output">      
+                  <app-cart></app-cart>
+                </div>
+              </div>
+              <div *ngIf="topic.output === 'QueryParam'" id="Query Params">
+                <div class="code-head">output</div>
+                <div class="output">
+                  <p>Here we are passing two query param - keyword and in cart route</p>
+                  <button routerLink="/home/cart" [queryParams]="{ keyword: 'Laptop',category:'Electronics' }">Go to Cart - </button>  With Query Param - Keyword=Laptop and Category=Electronics   
+                  <button routerLink="/home/cart" [queryParams]="{ keyword: 'Hat',category:'Fashion' }">Go to Cart - </button>  With Query Param - Keyword=Hat and Category=Fashion             
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

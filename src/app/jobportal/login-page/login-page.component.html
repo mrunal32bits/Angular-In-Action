@@ -1,0 +1,164 @@
+<div class="container">
+    <div *ngIf="jobSeek" class="job-seek" (click)="onJobSeekerClick()">
+        <h1>Job Seeker</h1>
+    </div>
+    <div *ngIf="recruit" class="recruit" (click)="onRecruiterClick()">
+        <h1>Recruiter</h1>
+    </div>
+    <div *ngIf="mode=='jobseeker'" class="seeker">
+        <h1>Job Seeker</h1>
+        <p>Find your dream job with us!</p>
+        <!-- <button class="jobPortalBtn" (click)="jobSeekLogin()">Login as Job Seeker</button>
+        <button class="jobPortalBtn" (click)="jobSeekAccount()">Create New Account as Job Seeker</button> -->
+        <ul class="nav nav-tabs mb-3">
+            <li class="nav-item">
+                <a class="jobPortalBtn" [class.active]="activeTab === 'login'" (click)="activeTab = 'login'">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="jobPortalBtn" [class.active]="activeTab === 'register'"
+                    (click)="activeTab = 'register'">Register</a>
+            </li>
+        </ul>
+        <div [ngSwitch]="activeTab">
+            <div *ngSwitchCase="'register'">
+                <!-- Recruiter Login Form -->
+                <div class="job-opening-form">
+                    <h2>Register as a Recruiter</h2>
+                    <form [formGroup]="seekerForm" (ngSubmit)="onSeekerSubmit()">
+                        <div>
+                            <label for="yourName">Your Name</label>
+                            <input id="yourName" formControlName="yourName" type="text" />
+                        </div>
+                        <div>
+                            <label for="email_Id">Email ID</label>
+                            <input id="email_Id" formControlName="email_Id" type="email" />
+                        </div>
+                        <div>
+                            <label for="phoneNumber">Phone Number</label>
+                            <input id="phoneNumber" formControlName="phoneNumber" type="text" />
+                        </div>
+                        <div>
+                            <label for="password">Password</label>
+                            <input id="password" formControlName="password" type="password" />
+                        </div>
+                        <button class="jobPortalBtn" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div *ngSwitchCase="'login'">
+                <!-- Recruiter Login Form -->
+                <div class="job-opening-form">
+                    <h2>Login as a Recruiter</h2>
+                    <form [formGroup]="seekerLoginForm" (ngSubmit)="onRecruiterLogin(seekerLoginForm)">
+                        <div>
+                            <label for="email_Id">Email ID</label>
+                            <input id="email_Id" formControlName="email_Id" type="email" />
+                        </div>
+                        <div>
+                            <label for="password">Password</label>
+                            <input id="password" formControlName="password" type="password" />
+                        </div>
+                        <button class="jobPortalBtn" type="submit">Login</button>
+                    </form>
+                </div>
+                <div class="forgot-password">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">Forgot Password?</a>
+                </div>
+                <!-- Bootstrap Modal -->
+                <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form [formGroup]="resetPasswordForm" (ngSubmit)="onResetPasswordSubmit()">
+                                <div class="modal-body">
+                                    <div>
+                                        <label for="email_Id">Email</label>
+                                        <input id="email_Id" formControlName="email_Id" type="email" class="form-control" />
+                                    </div>
+                                    <div>
+                                        <label for="newPassword">New Password</label>
+                                        <input id="newPassword" formControlName="newPassword" type="password" class="form-control" />
+                                    </div>
+                                    <div class="mt-3">
+                                        <label for="confirmPassword">Confirm Password</label>
+                                        <input id="confirmPassword" formControlName="confirmPassword" type="password" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="jobPortalBtn btn btn-primary" type="submit">Submit</button>
+                                    <button class="jobPortalBtn btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="mode=='recruiter'" class="recruiter">
+        <div>
+            <h1>Recruiter</h1>
+            <p>Find the best talent for your company!</p>
+            <!-- <button class="jobPortalBtn" (click)="recruitLogin()">Login as Recruiter</button> <br>
+            <button class="jobPortalBtn" (click)="recruitAccount()">Create New Account as Recruiter</button> -->
+        </div>
+        <ul class="nav nav-tabs mb-3">
+            <li class="nav-item">
+                <a class="jobPortalBtn" [class.active]="activeTab === 'login'" (click)="activeTab = 'login'">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="jobPortalBtn" [class.active]="activeTab === 'register'"
+                    (click)="activeTab = 'register'">Register</a>
+            </li>
+        </ul>
+        <div [ngSwitch]="activeTab">
+            <div *ngSwitchCase="'register'">
+                <!-- Recruiter Login Form -->
+                <div class="job-opening-form">
+                    <h2>Register as a Recruiter</h2>
+                    <form [formGroup]="recruiterForm" (ngSubmit)="onRecruiterSubmit()">
+                        <div>
+                            <label for="companyName">Company Name</label>
+                            <input id="companyName" formControlName="companyName" type="text" />
+                        </div>
+                        <div>
+                            <label for="email_Id">Email ID</label>
+                            <input id="email_Id" formControlName="email_Id" type="email" />
+                        </div>
+                        <div>
+                            <label for="password">Password</label>
+                            <input id="password" formControlName="password" type="password" />
+                        </div>
+                        <div>
+                            <label for="location">Location</label>
+                            <input id="location" formControlName="location" type="text" />
+                        </div>
+                        <button class="jobPortalBtn" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div *ngSwitchCase="'login'">
+                <!-- Recruiter Login Form -->
+                <div class="job-opening-form">
+                    <h2>Login as a Recruiter</h2>
+                    <form [formGroup]="recruiterLoginForm" (ngSubmit)="onRecruiterLogin(recruiterLoginForm)">
+                        <div>
+                            <label for="email_Id">Email ID</label>
+                            <input id="email_Id" formControlName="email_Id" type="email" />
+                        </div>
+                        <div>
+                            <label for="password">Password</label>
+                            <input id="password" formControlName="password" type="password" />
+                        </div>
+                        <button class="jobPortalBtn" type="submit">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

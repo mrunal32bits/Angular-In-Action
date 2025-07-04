@@ -1,0 +1,17 @@
+<div class="cart">
+    <p><b>This is Child Component's DOM</b></p>
+    <div *ngIf="cartName && items.length > 0">
+        <h6>These Values are Coming From Home Component (Parent)</h6>
+        <p>{{msg}}</p>
+        <p>Welcome to {{cartName}}'s Cart</p>
+        <div *ngFor="let item of items">{{item.name}} - {{item.price}}</div>
+    </div>
+    <button (click)="sendMessage()">Send Message to Parent</button>
+    <div>
+        <p>Item Id passed in Route - {{itemId}}</p>
+        <p>Items whose ID maths to itemId passed in Route Param</p>
+        <div *ngFor="let item of itemsList">
+            <p>{{item.name}} - {{item.price}}</p>
+        </div>
+    </div>
+</div>

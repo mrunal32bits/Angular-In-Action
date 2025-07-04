@@ -1,0 +1,46 @@
+<div class="e-com">
+    <div class="shop">
+      <h1>Shop</h1>
+      <div class="shop-items">
+        <div *ngFor="let item of items" class="shop-item">
+          <img [src]="item.imageUrl" [width]="imageWidth" [height]="imageHeight" />
+          <h4>{{item.name}}</h4>
+          <p>{{item.price}}</p>
+          <button class="btn btn-primary" (click)="addToCart(item)">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="cart">
+      <h2>Cart</h2>
+      <div class="shop-items">
+        <div *ngFor="let item of cartItemsList" class="cart-item">
+          <img [src]="item.imageUrl" [width]="imageWidth" [height]="imageHeight" />
+          <h4>{{item.name}}</h4>
+          <p>{{item.totalPrice}}</p>
+          <div>
+            <button class="btn btn-primary" (click)="removeFromCart(item)">-</button>
+            <p>{{item.quantity}}
+              <button class="btn btn-primary" (click)="addToCart(item)">+</button>
+            </p>
+          </div>
+        </div>
+        <div *ngIf="cartItemsList.length === 0" class="empty-cart">Your cart is empty</div>
+        <div class="cart-summary" *ngIf="cartItemsList.length > 0">
+          <h3>Total Payable Amount: {{ calculateTotal() | currency }}</h3>
+          <button class="btn btn-primary" (click)="placeOrder()">Place Order</button>
+        </div>
+      </div>
+    </div>
+    <div class="placed-order">
+      <h2>Placed Order</h2>
+      <div class="shop-items">
+        <div *ngFor="let item of placedOrder" class="cart-item">
+          <img [src]="item.imageUrl" [width]="imageWidth" [height]="imageHeight" />
+          <h4>{{item.name}}</h4>
+          <p>{{item.totalPrice}}</p>
+          <p>{{item.quantity}}</p>
+          <button class="btn btn-primary" *ngIf="placedOrder.length > 0" (click)="cancelOrder(item)">Cancel Order</button>
+        </div>
+      </div>
+    </div>
+  </div>

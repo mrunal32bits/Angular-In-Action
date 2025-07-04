@@ -1,0 +1,17 @@
+.e-com{
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    padding: 5rem;
+}
+.shop-items{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+img{
+    border-radius: 20px;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JobSphere - Job Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-left">JobSphere</div>
+    <div class="navbar-right">
+      <!-- <a href="#search">Search Job</a> -->
+      <a (click)="navigate()">Recruit</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Find Your Dream Job</h1>
+    <p>Explore thousands of job listings from top companies across the country. Start your career journey now.</p>
+    <a href="#search" class="jobPortalBtn">Get Started</a>
+  </section>
+<!-- Job Listings Section -->
+
+<section class="job-listings">
+    <h2>Available Jobs</h2>
+    <div class="search-bar">
+        <input type="text" placeholder="Search by job title or keyword" [(ngModel)]="searchQuery" />
+        <select [(ngModel)]="selectedLocation">
+            <option value="">All Locations</option>
+            <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
+        </select>
+        <button class="jobPortalBtn" (click)="filterJobs()">Search</button>
+    </div>
+    <div class="job-panel">
+        <div class="job-card" *ngFor="let job of jobListDataCopy">
+            <!-- <img [src]="job.logo" alt="Company Logo" class="company-logo" /> -->
+            <div class="job-details">
+                <h3>{{ job.jobTitle }}</h3>
+                <p><strong>Company:</strong> {{ job.companyName }}</p>
+                <p><strong>Location:</strong> {{ job.location }}</p>
+                <p><strong>Salary:</strong> {{ job.salary }}</p>
+                <p>{{job.jobDescription}}</p>
+                <button class="jobPortalBtn" [disabled]="job.applied" (click)="applyForJob(job.job_id); job.applied = true">
+                  {{ job.applied ? 'Applied' : 'Apply Now' }}
+                </button>
+            </div>
+        </div>
+        <div *ngIf="jobFound===0">No Jobs Found</div>
+    </div>
+</section>
+</body>
+</html>

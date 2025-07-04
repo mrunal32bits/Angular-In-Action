@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="card">
+    <h2>Promise</h2>
+    <button (click)="buyLaptop()" class="btn btn-primary"> Buy Laptop</button>
+    <p>{{brandResponse}}</p>
+    <button (click)="buyLaptop2()" class="btn btn-primary"> Buy Laptop</button>
+    <p>{{prizeResponse}}</p>
+  </div>
+  <div class="card">
+    <h2>Interval Operator</h2>
+    <p>This is interval emitted value - {{intervalCount}}</p>
+    <ul id="intervalList">
+      <li *ngFor="let item of intervalList">{{item}}</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>Stop Watch</h2>
+    <button class="btn btn-primary" (click)="startStopWatch()" [disabled]="!started">Start <i
+        class="bi bi-play-circle"></i>
+    </button>
+    <p class="time">{{formattedTime}}</p>
+    <table class="table-dark" *ngIf="timeCountArray.length > 0">
+      <thead>
+        <tr>
+          <th scope="col">Lap Time</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of timeCountArray.slice().reverse()">
+          <td>{{item}}</td>
+          <td>{{totalTimeCount}}</td>
+        </tr>
+      </tbody>
+    </table>
+      <button class="btn btn-light" (click)="stopWatch()" [disabled]="started">Stop = </button>
+  <button class="btn btn-danger" (click)="resetWatch()" [disabled]="!started">Reset </button>
+  </div>
+
+
+
+  <!-- <tr> Current Time
+        <td *ngFor="let item of timeCountArray.slice().reverse()">{{item}}</td>
+    </tr>
+    <tr> Total Time
+        <td>{{totalTimeCount}}</td>
+    </tr> -->
+
+</div>
