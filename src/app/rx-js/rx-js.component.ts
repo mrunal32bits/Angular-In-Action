@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { interval, Subscription } from 'rxjs';
+import { concatMap, delay, from, interval, map, of, Subscription, take, tap, timer } from 'rxjs';
 
 @Component({
   selector: 'app-rx-js',
@@ -19,32 +19,62 @@ export class RxJSComponent {
   brandResponse: any;
   prizeResponse: any;
 
-  intervalCount:any;
+  
   timeCount: any;
   formattedTime: string = '00:00:00';
 
+
+  intervalCount:any;
   stopInterval: Subscription | undefined;
   interval$ = interval(1000);
+
+  timerCount: any;
+  stopTimer: Subscription | undefined;
+  timer = timer(5000, 1000);
+  timerList: any = [];
+
+
   intervalList: any = [];
   timeCountArray: any = [];
   totalTimeCount:any; 
   totalTImeCountArray: any = [];
   started: boolean = true;
 
+  //progress bar
+  download: any;
+  progress:any = 0;
+  //typewriter effect
+  typewriter:any;
+  typewriterText: string = '';
+  //random quote
+  randomQuoteObs:any;
+  randomQuote:string = '';
+
+
 
 
 
 
   ngOnInit() {
+    
     let count = 0;
     this.stopInterval = this.interval$.subscribe((value) => {
       count++;
       this.intervalCount = count;
-      this.intervalList.push("Value number " + count + " emitted at " + new Date().toLocaleTimeString());
+      this.intervalList.push("Value" + count + " emitted at " + new Date().toLocaleTimeString());
       if (count === 5) {
         this.stopInterval?.unsubscribe();
       }
     });
+    let timerCount = 0;
+    this.stopTimer = this.timer.subscribe(() => {
+      timerCount++;
+      this.timerCount = timerCount;
+      this.timerList.push("Value" + new Date().toLocaleTimeString() + " with value: " + timerCount);
+      if(timerCount === 5){
+        this.stopTimer?.unsubscribe();
+      }
+    })
 
   }
 
@@ -104,17 +134,6 @@ export class RxJSComponent {
     this.timeCount = this.formattedTime;
     this.timeCountArray.push(this.timeCount);
     console.log(this.timeCountArray);
-    // this.totalTimeCount = this.timeCountArray.reduce((acc: any, curr: any) => {
-    //   const [hours, minutes, seconds] = curr.split(':').map(Number);
-    //   return acc + (hours * 3600 + minutes * 60 + seconds);
-    // }, 0);
-    // // Convert totalTimeCount (in seconds) back to hh:mm:ss format
-    // const totalSeconds = this.totalTimeCount;
-    // const hours = Math.floor(totalSeconds / 3600).toString().padStart(2, '0');
-    // const minutes = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
-    // const seconds = (totalSeconds % 60).toString().padStart(2, '0');
-    // const formattedTotalTime = `${hours}:${minutes}:${seconds}`;
-    // this.totalTImeCountArray.push(formattedTotalTime);
     console.log(this.totalTimeCount);
     this.stopInterval?.unsubscribe();
     this.formattedTime = '00:00:00';
@@ -123,6 +142,52 @@ export class RxJSComponent {
   resetWatch(){
     this.timeCountArray = [];
     this.formattedTime = '00:00:00';
+  }
+
+  downloadFile(){
+    this.download?.unsubscribe();
+    this.download = interval(100).pipe(
+      tap((value)=> {
+        if(value > 100){
+          alert("Download completed");
+          this.download.unsubscribe();
+        }
+      }),
+      map((value) => value + Math.floor(Math.random()))
+    ).subscribe((value) => {
+      this.progress = value;
+    })
+  }
+
+  startTypewriter(){
+     this.typewriter?.unsubscribe();
+    const originalText  = "This is a typewriter effect example.";
+    this.typewriter = from(originalText).pipe(
+  concatMap(char => of(char).pipe(delay(100)))
+).subscribe((value)=>{
+        console.log(value);
+        this.typewriterText += value
+    })
+   
+    this.typewriterText = '';
+  }
+
+  getRandomQuote(){
+    const randomQuotes = [
+      "The only limit to our realization of tomorrow is our doubts of today.",
+      "The future belongs to those who believe in the beauty of their dreams.",
+      "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+      "Believe you can and you're halfway there."]
+    this.randomQuoteObs?.unsubscribe();
+    this.randomQuoteObs = interval(5000).pipe(
+      map((value) => {
+        return randomQuotes[Math.floor(Math.random() * randomQuotes.length)];
+      }),
+    ).subscribe((value)=>{
+      this.randomQuote = value;
+    })
+    this.randomQuote = '';
+
   }
 
 

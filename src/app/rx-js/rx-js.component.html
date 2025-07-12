@@ -1,9 +1,9 @@
 <div class="container">
   <div class="card">
     <h2>Promise</h2>
-    <button (click)="buyLaptop()" class="btn btn-primary"> Buy Laptop</button>
+    <button (click)="buyLaptop()" class="btn btn-primary w-100"> Buy Laptop</button>
     <p>{{brandResponse}}</p>
-    <button (click)="buyLaptop2()" class="btn btn-primary"> Buy Laptop</button>
+    <button (click)="buyLaptop2()" class="btn btn-primary w-100"> Buy Laptop</button>
     <p>{{prizeResponse}}</p>
   </div>
   <div class="card">
@@ -14,8 +14,15 @@
     </ul>
   </div>
   <div class="card">
+    <h2>Timer Operator</h2>
+    <p>This is time emitted value after <b>5 sec delay</b> - {{timerCount}}</p>
+    <ul id="intervalList">
+      <li *ngFor="let item of timerList">{{item}}</li>
+    </ul>
+  </div>
+  <div class="card">
     <h2>Stop Watch</h2>
-    <button class="btn btn-primary" (click)="startStopWatch()" [disabled]="!started">Start <i
+    <button class="btn btn-primary w-100" (click)="startStopWatch()" [disabled]="!started">Start <i
         class="bi bi-play-circle"></i>
     </button>
     <p class="time">{{formattedTime}}</p>
@@ -33,17 +40,28 @@
         </tr>
       </tbody>
     </table>
-      <button class="btn btn-light" (click)="stopWatch()" [disabled]="started">Stop = </button>
-  <button class="btn btn-danger" (click)="resetWatch()" [disabled]="!started">Reset </button>
+    <button class="btn btn-light w-100" (click)="stopWatch()" [disabled]="started">Stop = </button>
+    <button class="btn btn-danger w-100" (click)="resetWatch()" [disabled]="!started">Reset </button>
   </div>
 
-
-
-  <!-- <tr> Current Time
-        <td *ngFor="let item of timeCountArray.slice().reverse()">{{item}}</td>
-    </tr>
-    <tr> Total Time
-        <td>{{totalTimeCount}}</td>
-    </tr> -->
-
+</div>
+<div class="container">
+  <div class="card">
+    <h2>Progress</h2>
+    <button class="btn btn-primary w-50" (click)="downloadFile()">Download</button>
+    <div class="progress">
+      <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" [style.width.%]="progress"
+        [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax="100">{{progress}}%</div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Typewriter Effect</h2>
+    <button class="btn btn-primary w-50" (click)="startTypewriter()">Start Typewriter</button>
+    <p>{{typewriterText}}</p>
+  </div>
+  <div class="card">
+    <h2>Random Quote Generator</h2>
+    <button class="btn btn-primary w-50" (click)="getRandomQuote()">Random Quote</button>
+    <p>{{randomQuote}}</p>
+  </div>
 </div>

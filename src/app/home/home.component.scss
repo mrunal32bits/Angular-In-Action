@@ -132,14 +132,8 @@ a{
 }
 .miniProject:hover{
     background-color: #b602ff;
-    color: #fff;
-    transform: scale(1.08) translateX(10px) rotate(-2deg);
+    color: black;
     box-shadow: 0 8px 24px rgba(182, 2, 255, 0.25);
-    transition: 
-        background-color 0.3s cubic-bezier(0.4,0,0.2,1),
-        color 0.3s cubic-bezier(0.4,0,0.2,1),
-        transform 0.3s cubic-bezier(0.4,0,0.2,1),
-        box-shadow 0.3s cubic-bezier(0.4,0,0.2,1);
     cursor: pointer;
 }
 
