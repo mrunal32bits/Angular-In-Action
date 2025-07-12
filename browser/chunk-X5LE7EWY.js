@@ -1,0 +1,1 @@
+import{Ga as i,Lb as e,O as t}from"./chunk-TKXRFENJ.js";import"./chunk-FK42CRUA.js";var r=class o{static \u0275fac=function(m){return new(m||o)};static \u0275mod=i({type:o});static \u0275inj=t({imports:[e]})};export{r as JobportalModule};
