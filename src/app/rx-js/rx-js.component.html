@@ -21,6 +21,22 @@
     </ul>
   </div>
   <div class="card">
+    <h2>fromEvent Operator</h2>
+    <p>Value emitted when event triggers on target</p>
+    <button #emitBtn class="btn btn-primary w-100">Emit Value</button>
+    <ul>
+      <li *ngFor="let item of fromEventList"> {{item}}</li>
+    </ul>
+  </div>
+</div>
+<div class="container">
+  <div class="card">
+    <h2>toArray and of Operator</h2>
+    <p>of(1,2,3,4,5) => stream => toArray() => [{{toArrayResponse}}]</p>
+  </div>
+</div>
+<div class="container">
+    <div class="card">
     <h2>Stop Watch</h2>
     <button class="btn btn-primary w-100" (click)="startStopWatch()" [disabled]="!started">Start <i
         class="bi bi-play-circle"></i>
@@ -43,9 +59,6 @@
     <button class="btn btn-light w-100" (click)="stopWatch()" [disabled]="started">Stop = </button>
     <button class="btn btn-danger w-100" (click)="resetWatch()" [disabled]="!started">Reset </button>
   </div>
-
-</div>
-<div class="container">
   <div class="card">
     <h2>Progress</h2>
     <button class="btn btn-primary w-50" (click)="downloadFile()">Download</button>
@@ -63,5 +76,25 @@
     <h2>Random Quote Generator</h2>
     <button class="btn btn-primary w-50" (click)="getRandomQuote()">Random Quote</button>
     <p>{{randomQuote}}</p>
+  </div>
+</div>
+<div class="container">
+  <div class="card">
+  <h2>Retry HTTP Call</h2>
+  <button (click)="getUserData()" class="btn btn-primary w-50">Get User Data</button>
+  <p>Open Network Tab - Turn Off Internet - Click button above - Turn on Internet</p>
+  <p *ngFor="let data of userData">{{data.name}}</p>
+  </div>
+  <div class="card">
+    <h2>Deboune</h2>
+    <input id="debounce" type="text" #debounceTest>
+    <p>Delay is decided by the length of string enterted in Input Box</p>
+  </div>
+  <div class="card">
+    <h2>{{globalVar}}
+    </h2>
+    <input type="text" placeholder="Enter Global varibale Name" #global>
+    <button class="btn btn-primary w-50" (click)="changeGlobalVar(global)">Change Everywhere</button>
+    <app-report></app-report>
   </div>
 </div>

@@ -7,11 +7,15 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import hljs from 'highlight.js';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { Router, RouterModule } from '@angular/router';
+import { MiniProjectsComponent } from '../mini-projects/mini-projects.component';
+import { OnInit, OnDestroy } from '@angular/core';
+import { MyPipePipe } from '../my-pipe.pipe';
+import { PlaygroundComponent } from '../playground/playground.component';
 
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, FormsModule, CartComponent, HighlightModule, CheckoutComponent, ReactiveFormsModule, RouterModule],
+  imports: [PlaygroundComponent,CommonModule, FormsModule, CartComponent, HighlightModule, CheckoutComponent, ReactiveFormsModule, RouterModule,MyPipePipe],
   providers: [
     {
       provide: HIGHLIGHT_OPTIONS,
@@ -27,7 +31,12 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements AfterViewChecked {
+export class HomeComponent implements OnInit, OnDestroy {
+  
+  myName:string = "AngLar in AcTion";
+  capPipe = new MyPipePipe();
+
+  
 
   name: string = 'Rajesh';
   number: number = +919897949596;
@@ -49,6 +58,7 @@ export class HomeComponent implements AfterViewChecked {
   isCopy: boolean = false;
   receivedMsg: any;
   selectedTopic?: any;
+  isAtBottom = false;
 
   userName = "Mrunal"
   cartItems = [
@@ -88,6 +98,12 @@ export class HomeComponent implements AfterViewChecked {
   }
 
   ngOnInit() {
+
+
+
+    
+    window.addEventListener('scroll', this.checkIfAtBottom, { passive: true });
+    this.checkIfAtBottom(); // Initial check
     this.topics = this.dataService.getTopics();
     // this.subTopics = this.dataService.getSubTopics();
     this.subTopics = [
@@ -120,6 +136,23 @@ export class HomeComponent implements AfterViewChecked {
     this.contactFormD = new FormGroup(formGroup);
   }
 
+  changeString(val:string){
+    const lowerCase = val.split(' ');
+ 
+    console.log(lowerCase)
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('scroll', this.checkIfAtBottom);
+  }
+
+  checkIfAtBottom = () => {
+    const scrollY = window.scrollY || window.pageYOffset;
+    const viewportHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    this.isAtBottom = (scrollY + viewportHeight >= documentHeight - 5);
+  }
+
   contactForm = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
@@ -136,6 +169,20 @@ export class HomeComponent implements AfterViewChecked {
     if (this.contactFormD.valid) {
       alert('Thank ' + this.contactFormD.value.name + ' for contacting us!');
       this.contactFormD.reset();
+    }
+  }
+
+  scrollToNextViewport() {
+    const scrollY = window.scrollY || window.pageYOffset;
+    const viewportHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+
+    // If we're at (or very near) the bottom, scroll to top
+    if (scrollY + viewportHeight >= documentHeight - 5) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // Otherwise, scroll down by one viewport
+      window.scrollBy({ top: viewportHeight, left: 0, behavior: 'smooth' });
     }
   }
 

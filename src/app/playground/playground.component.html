@@ -1,0 +1,83 @@
+<!-- <div class="header navbar">
+    Myheader
+</div>
+<div class="section">
+    <h1>This is Just a Testing</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident quam ad perspiciatis, doloribus nostrum eaque assumenda ipsum, non deserunt possimus similique magni mollitia culpa beatae aspernatur animi consequuntur officiis dolorum.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis eum expedita dolorum nemo deleniti possimus, asperiores eveniet non doloremque beatae cumque quibusdam vero, rerum est mollitia a minus. Perspiciatis, vero?
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni earum nostrum delectus eum repudiandae autem dignissimos, quo optio non quisquam quia dicta deserunt aliquid dolorem impedit odit totam id ipsam!
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores, similique? Autem veritatis architecto eos neque distinctio praesentium quas, deleniti corporis porro nostrum fugiat asperiores omnis dolor labore dolorem assumenda saepe?
+    </p>
+    <div class="cards">
+        <div class="card">
+            <h3>Hello</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus ut deleniti explicabo maxime, consequatur nesciunt aliquam odio reprehenderit nemo illum, eius assumenda repellat iure quasi nulla ex. Deleniti, minima rerum?</p>
+        </div>
+                <div class="card">
+            <h3>Hello</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus ut deleniti explicabo maxime, consequatur nesciunt aliquam odio reprehenderit nemo illum, eius assumenda repellat iure quasi nulla ex. Deleniti, minima rerum?</p>
+        </div>
+                <div class="card">
+            <h3>Hello</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus ut deleniti explicabo maxime, consequatur nesciunt aliquam odio reprehenderit nemo illum, eius assumenda repellat iure quasi nulla ex. Deleniti, minima rerum?</p>
+        </div>
+                <div class="card">
+            <h3>Hello</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus ut deleniti explicabo maxime, consequatur nesciunt aliquam odio reprehenderit nemo illum, eius assumenda repellat iure quasi nulla ex. Deleniti, minima rerum?</p>
+        </div>
+    </div>
+        <div class="cards">
+        <div class="card">
+            <h3>Hello</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus ut deleniti explicabo maxime, consequatur nesciunt aliquam odio reprehenderit nemo illum, eius assumenda repellat iure quasi nulla ex. Deleniti, minima rerum?</p>
+        </div>
+                <div class="card">
+            <h3>Hello</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus ut deleniti explicabo maxime, consequatur nesciunt aliquam odio reprehenderit nemo illum, eius assumenda repellat iure quasi nulla ex. Deleniti, minima rerum?</p>
+        </div>
+                <div class="card">
+            <h3>Hello</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus ut deleniti explicabo maxime, consequatur nesciunt aliquam odio reprehenderit nemo illum, eius assumenda repellat iure quasi nulla ex. Deleniti, minima rerum?</p>
+        </div>
+                <div class="card">
+            <h3>Hello</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus ut deleniti explicabo maxime, consequatur nesciunt aliquam odio reprehenderit nemo illum, eius assumenda repellat iure quasi nulla ex. Deleniti, minima rerum?</p>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    All Right Reserved
+</div> -->
+<div class="container">
+<h2>Virtual Scroll Table</h2>
+<p>Data loading form API Call as you Scroll</p>
+
+<cdk-virtual-scroll-viewport
+  itemSize="60"
+ 
+  class="h-[500px] w-full border"
+  (scrolledIndexChange)="onScrolledIndexChange($event)"
+>
+  <div *cdkVirtualFor="let product of products" class="p-3 border-b">
+    <strong>{{ product.id }}.</strong> {{ product.title }}
+    <span class="text-gray-500"> - ${{ product.price }}</span>
+  </div>
+</cdk-virtual-scroll-viewport>
+
+<div *ngIf="loading" class="p-2 text-center text-blue-500">Loading...</div>
+</div>
+<div class="container">
+    <h2>File Upload Wizard</h2>
+    <p>Upload multiple files, track progress and cancel upload.</p>
+<div class="mb-3">
+  <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+  <input class="form-control" type="file" id="formFileMultiple" multiple (change)="fileUpload($event)">
+  <div *ngIf="showProgress" class="progress">
+  <div class="progress-bar" role="progressbar" [style.width.%]="progress"
+        [attr.aria-valuenow]="progress"  aria-valuemin="0" aria-valuemax="100"></div>
+  <a (click)="cancelUpload()">❌</a>
+</div>
+
+  <div *ngIf="fileName">Uploaded File {{fileName}} </div>
+</div>
+</div>

@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
+import { User } from './ngrx-demo/models/user.model';
 const API_URL = 'https://gvxkeiqldnrpnkdvqshh.supabase.co';
 const HEADERS = {
   'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2eGtlaXFsZG5ycG5rZHZxc2hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDczNzUzNDYsImV4cCI6MjA2Mjk1MTM0Nn0.syNX2Bg9mpSlyNINgFchOIIsQ-nMKRDvKipTOnxOG70',
@@ -15,7 +17,17 @@ export class DataService {
 
   private msgForSibling: string | undefined;
 
+  private apiUrl = 'https://jsonplaceholder.typicode.com/users';
+
+  private baseUrl = 'https://dummyjson.com/products';
+
+  globalVar = new BehaviorSubject<string>("Angular in Action");
+
   constructor(private http:HttpClient) { }
+
+  getAllUsers(): Observable<User[]>{
+    return this.http.get<User[]>(this.apiUrl);
+  }
 
   setMsgForSibling(msg: string) {
     this.msgForSibling = msg;
@@ -24,6 +36,8 @@ export class DataService {
   getMsgForSibling() {
     return this.msgForSibling;
   }
+
+
 
   jobsListData = [
     {
@@ -108,6 +122,8 @@ export class DataService {
     }
   ];
 
+
+ // Job Portal API Calls
   getJobsList() {
     return this.http.get<any[]>(`${API_URL}/rest/v1/openJobs`, { headers: HEADERS });
   }
@@ -127,6 +143,14 @@ export class DataService {
   }
   recruiterLogin(data: any) {
     return this.http.post<any>(`${API_URL}/rest/v1/recruiters`, data, { headers: HEADERS });
+  }
+
+  // Virtaul Scroll 
+  getProducts(page: number, limit: number): Observable<any[]> {
+    const skip = (page - 1) * limit;
+    return this.http
+      .get<any>(`${this.baseUrl}?limit=${limit}&skip=${skip}`)
+      .pipe(map((res) => res.products));
   }
 
 

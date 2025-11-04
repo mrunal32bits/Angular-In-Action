@@ -1,0 +1,108 @@
+<div class="user-list-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <h1 class="page-title">Users Management</h1>
+    <button 
+      (click)="openAddDialog()"
+      class="add-button">
+      <svg class="add-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+      </svg>
+      Add New User
+    </button>
+  </div>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="success-message">
+    <svg class="success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+    </svg>
+    <span class="success-text">{{ successMessage }}</span>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error$ | async as error" class="error-container">
+    <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <div class="error-content">
+      <h3 class="error-title">Error</h3>
+      <p class="error-message">{{ error }}</p>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading$ | async" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Loading users...</p>
+  </div>
+
+  <!-- Users Grid -->
+  <div *ngIf="!(loading$ | async) && (users$ | async)?.length" class="users-grid">
+    <div 
+      *ngFor="let user of users$ | async" 
+      class="user-card">
+      <div class="user-header">
+        <h3 class="user-name">{{ user.name }}</h3>
+        <div class="user-actions">
+          <button 
+            (click)="openEditDialog(user)"
+            class="action-button edit-button">
+            Edit
+          </button>
+          <button 
+            (click)="deleteUser(user.id!)"
+            class="action-button delete-button">
+            Delete
+          </button>
+        </div>
+      </div>
+      <div class="user-details">
+        <div class="user-detail-item">
+          <span class="detail-label">Username:</span>
+          <span class="detail-value">{{ user.username }}</span>
+        </div>
+        <div class="user-detail-item">
+          <span class="detail-label">Email:</span>
+          <span class="detail-value">{{ user.email }}</span>
+        </div>
+        <div *ngIf="user.phone" class="user-detail-item">
+          <span class="detail-label">Phone:</span>
+          <span class="detail-value">{{ user.phone }}</span>
+        </div>
+        <div *ngIf="user.website" class="user-detail-item">
+          <span class="detail-label">Website:</span>
+          <span class="detail-value">{{ user.website }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!(loading$ | async) && !(users$ | async)?.length" class="empty-container">
+    <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+    </svg>
+    <p class="empty-text">No users found.</p>
+  </div>
+
+  <!-- Add User Dialog -->
+  <app-user-dialog
+    *ngIf="showAddDialog"
+    [isEditMode]="false"
+    [userData]="newUser"
+    [isLoading]="(loading$ | async) ?? false"
+    (submit)="addUser($event)"
+    (cancel)="closeAddDialog()">
+  </app-user-dialog>
+
+  <!-- Edit User Dialog -->
+  <app-user-dialog
+    *ngIf="showEditDialog"
+    [isEditMode]="true"
+    [userData]="editingUser!"
+    [isLoading]="(loading$ | async) ?? false"
+    (submit)="updateUser($event)"
+    (cancel)="closeEditDialog()">
+  </app-user-dialog>
+</div> 

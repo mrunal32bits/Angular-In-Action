@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build  --base-href=/Angular-In-Action/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -18,6 +18,9 @@
     "@angular/platform-browser": "^19.1.0",
     "@angular/platform-browser-dynamic": "^19.1.0",
     "@angular/router": "^19.1.0",
+    "@ngrx/effects": "^20.0.0",
+    "@ngrx/store": "^20.0.0",
+    "@ngrx/store-devtools": "^20.0.0",
     "@supabase/supabase-js": "^2.49.6",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
@@ -32,6 +35,7 @@
     "@angular/cli": "^19.1.5",
     "@angular/compiler-cli": "^19.1.0",
     "@types/jasmine": "~5.1.0",
+    "angular-cli-ghpages": "^2.0.3",
     "autoprefixer": "^10.4.21",
     "jasmine-core": "~5.5.0",
     "karma": "~6.4.0",

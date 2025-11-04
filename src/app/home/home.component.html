@@ -1,28 +1,22 @@
 <div *ngIf="isCopy" class="alert alert-primary" role="alert">
   Code Copied!
 </div>
+<div class="container5">
+    <p>Hi 👋, Welcome to this Project |
+      <b>💛 I frequently making changes in this project. Few things are not supposed to work.</b></p>
+</div>
 <div class="container">
   <div class="header">
     <img src="angular_icon_gradient.gif" alt="" height="200" width="200" />
     <h1 class="angular">Angular In Action</h1>
   </div>
 </div>
-<div class="miniProject">
-  <a (click)="navigate('mini-projects')">Mini Project </a>
-</div>
-
 <div class="container3">
   <div class="search-bar">
-    <div style="display: flex;flex-direction: row; width: 80%;">
-      <input 
-      type="text" 
-      class="form-control" 
-      placeholder="Search topics..." 
-      [(ngModel)]="searchQuery" 
-      (input)="onSearch($event)"
-      list="suggestions"
-    />
-    <button class="btn btn-primary" (click)="performSearch()">Search</button>
+    <div style="display: flex;flex-direction: row; width: 100%;">
+      <input type="text" class="form-control" placeholder="Search topics..." [(ngModel)]="searchQuery"
+        (input)="onSearch($event)" list="suggestions" />
+      <button class="btn btn-primary" (click)="performSearch()">Search</button>
     </div>
     <div class="suggestionsOverlay" *ngIf="suggestions.length">
       <ul class="suggestionList">
@@ -38,8 +32,24 @@
 </div>
 <div class="container2">
   <div class="topics">
-    <div *ngFor="let topic of topics" class="topic" [class.selected]="selectedTopic === topic" (click)="selectTopic(topic)"> <a [routerLink]="[]" [fragment]="'selectedTopic'"> {{topic}}</a></div>
+    <div *ngFor="let topic of topics" class="topic" [class.selected]="selectedTopic === topic"
+      (click)="selectTopic(topic)"> <a [routerLink]="[]" [fragment]="'selectedTopic'"> {{topic}}</a></div>
   </div>
+  <button class="mouse-scroll-btn" (click)="scrollToNextViewport()" aria-label="Scroll Down">
+    <ng-container *ngIf="!isAtBottom; else upArrow">
+      <!-- Mouse SVG -->
+      <svg width="32" height="48" viewBox="0 0 32 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="4" width="24" height="40" rx="12" stroke="#333" stroke-width="3"/>
+        <rect x="14" y="10" width="4" height="8" rx="2" fill="#333"/>
+      </svg>
+    </ng-container>
+    <ng-template #upArrow>
+      <!-- Up Arrow SVG -->
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="8,20 16,12 24,20" stroke="#333" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </ng-template>
+  </button>
 </div>
 <div class="topic-section" *ngIf="selectedTopic === 'Data Binding'" id="Data Binding">
   <div class="topic-head">Data Binding</div>
@@ -269,7 +279,7 @@
                       <textarea class="form-control" name="message" [(ngModel)]="contact.message" required></textarea>
                     </div>
                     <button type="submit" [disabled]="!contactForm.valid">Submit</button>
-                  </form>                  
+                  </form>
                 </div>
               </div>
               <div *ngIf="topic.output === 'Reactive'">
@@ -290,7 +300,7 @@
                       <textarea class="form-control" formControlName="message"></textarea>
                     </div>
                     <button type="submit" [disabled]="!contactForm.valid">Submit</button>
-                  </form>                  
+                  </form>
                 </div>
               </div>
               <div *ngIf="topic.output === 'Dynamic'">
@@ -300,18 +310,11 @@
                   <form [formGroup]="contactFormD" (ngSubmit)="onSubmitDynamic()">
                     <div *ngFor="let field of formFields">
                       <label>{{ field.label }}:</label>
-                      <input
-                        *ngIf="field.type !== 'textarea'"
-                        [type]="field.type"
-                        [formControlName]="field.name"
-                      />
-                      <textarea
-                        *ngIf="field.type === 'textarea'"
-                        [formControlName]="field.name"
-                      ></textarea>  
+                      <input *ngIf="field.type !== 'textarea'" [type]="field.type" [formControlName]="field.name" />
+                      <textarea *ngIf="field.type === 'textarea'" [formControlName]="field.name"></textarea>
                     </div>
                     <button type="submit" [disabled]="!contactFormD.valid">Submit</button>
-                  </form>                  
+                  </form>
                 </div>
               </div>
             </div>
@@ -321,10 +324,14 @@
     </div>
   </div>
 </div>
-<div class="topic-section" *ngIf="selectedTopic === 'Routing' || selectedTopic === 'Route Params' || selectedTopic === 'Query Params'" id="Routing">
+<div class="topic-section"
+  *ngIf="selectedTopic === 'Routing' || selectedTopic === 'Route Params' || selectedTopic === 'Query Params'"
+  id="Routing">
   <div class="topic-head">Routing</div>
-  <div class="topic-details">Routing in Angular is a powerful feature that allows developers to create single-page applications (SPAs) with multiple views and navigation between them. It enables the application to load different components based on the URL, providing a seamless user experience without full page reloads.
-    
+  <div class="topic-details">Routing in Angular is a powerful feature that allows developers to create single-page
+    applications (SPAs) with multiple views and navigation between them. It enables the application to load different
+    components based on the URL, providing a seamless user experience without full page reloads.
+
   </div>
 
   <div *ngFor="let topic of routsData" class="accordion" id="accordionPanelsStayOpenExample">
@@ -358,12 +365,12 @@
                   <button routerLink="/homee">Wildcart Route - When we hit Wrong URL></button>
                   <button routerLink="/home">Default Route - Deafult route when app loads></button>
                   <button routerLink="/home/cart">Child 1 Route - Child1 of Home</button>
-                  <button routerLink="/eCom">Child 2 Route - Child2 of Home</button> 
+                  <button routerLink="/eCom">Child 2 Route - Child2 of Home</button>
                 </div>
               </div>
               <div *ngIf="topic.output === 'RouteParam'" id="Route Params">
                 <div class="code-head">output</div>
-                <div class="output">      
+                <div class="output">
                   <app-cart></app-cart>
                 </div>
               </div>
@@ -371,8 +378,10 @@
                 <div class="code-head">output</div>
                 <div class="output">
                   <p>Here we are passing two query param - keyword and in cart route</p>
-                  <button routerLink="/home/cart" [queryParams]="{ keyword: 'Laptop',category:'Electronics' }">Go to Cart - </button>  With Query Param - Keyword=Laptop and Category=Electronics   
-                  <button routerLink="/home/cart" [queryParams]="{ keyword: 'Hat',category:'Fashion' }">Go to Cart - </button>  With Query Param - Keyword=Hat and Category=Fashion             
+                  <button routerLink="/home/cart" [queryParams]="{ keyword: 'Laptop',category:'Electronics' }">Go to
+                    Cart - </button> With Query Param - Keyword=Laptop and Category=Electronics
+                  <button routerLink="/home/cart" [queryParams]="{ keyword: 'Hat',category:'Fashion' }">Go to Cart -
+                  </button> With Query Param - Keyword=Hat and Category=Fashion
                 </div>
               </div>
             </div>
@@ -380,5 +389,20 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div class="container4">
+  <div class="miniProject">
+       <div>
+  <p class="head">Checkout Mini Projects</p>
+      <p class="para">Explore a collection of hands-on Angular mini projects to boost your skills and creativity. Each project is
+        crafted to help you learn by doing, with real-world examples and interactive features</p>
+       </div>
+            <a class="miniButton" (click)="navigate('mini-projects')">View</a>  
+  </div>
+</div>
+<div class="container4">
+  <div class="playground">
+    <a (click)="navigate('playground')">Playground ▶</a>
   </div>
 </div>

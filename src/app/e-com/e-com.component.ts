@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-e-com',
@@ -8,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './e-com.component.html',
   styleUrl: './e-com.component.scss'
 })
-export class EComComponent {
+export class EComComponent implements OnInit {
 
   items = [
     { id: 1, name: "Laptop", price: 50000,imageUrl:"https://picsum.photos/201"},
@@ -22,6 +23,24 @@ export class EComComponent {
   imageUrl: string = "https://picsum.photos/200";
   imageWidth: number = 100;
   imageHeight: number = 100;
+
+  //Subject 
+  globalVar = "Angular in Action";
+
+  constructor(public dataS: DataService) {
+   
+  }
+
+  ngOnInit() {
+     this.dataS.globalVar.subscribe((res)=>this.globalVar = res);
+  }
+
+  onChange(global:any){
+    this.globalVar = global.value;
+    this.dataS.globalVar.next(global.value);
+  }
+
+
 
   addToCart(item: any) {
     const existingItem = this.cartItemsList.find((cartItem: any) => cartItem.id === item.id);
