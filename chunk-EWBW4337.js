@@ -1,0 +1,1 @@
+import{a}from"./chunk-CGGD3Q72.js";import"./chunk-MJNWZ7GG.js";import"./chunk-5AVJVI7L.js";import"./chunk-OWPKAOH6.js";import"./chunk-YAZ3RMD7.js";import"./chunk-FK42CRUA.js";export{a as UserDetailComponent};

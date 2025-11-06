@@ -1,1 +1,0 @@
-import{Ja as i,Q as t,Rb as e}from"./chunk-FFX37XZL.js";import"./chunk-FK42CRUA.js";var r=class o{static \u0275fac=function(m){return new(m||o)};static \u0275mod=i({type:o});static \u0275inj=t({imports:[e]})};export{r as JobportalModule};
